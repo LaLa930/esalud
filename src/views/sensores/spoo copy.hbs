@@ -33,7 +33,7 @@
         type: 'line',
         data: {
             labels: [
-                {{#each item}}
+                {{#each sensores}}
                     "{{moment date format="YYYY-MM-DDTHH:mm:ssZZ"}}"
                     {{#unless @last}},{{/unless}}
                 {{/each}}
@@ -45,10 +45,10 @@
                 backgroundColor: 'rgba(217, 95, 2, 0.03)',
                 yAxisID: 'B',
                 data: [
-                    {{#each item}}
+                    {{#each sensores}}
                     {
                         t: "{{moment date format="YYYY-MM-DDTHH:mm:ssZZ"}}",
-                        y: {{pulse}}
+                        y: {{valor}}
                     }{{#unless @last}},{{/unless}}
                     {{/each}}
                 ]},

@@ -1,28 +1,19 @@
 
 const express = require('express');
 const router = express.Router();
-const Sensor = require('../models/Sensor');
-const {isAuthenticated} = require ('../helpers/auth'); // Autentificacion
+const Sensor = require('../models/spo2');
+const {isAuthenticated} = require ('../helpers/auth'); // para ver si esta autenticado o no
 
-// Direccionar vista spo2
+// para etrar a la vista de tension
 router.get('/sensores/spoo', isAuthenticated , (req,res)=>{
   res.redirect('/spoo');
 });
 
+
 router.get('/spoo', isAuthenticated , async (req,res) => {
-  await Sensor.find({name:'pulsO'}) 
-    .then(sensors => {
-      const context = {
-        sensores: sensors.map(sensor => {
-          return {
-            name: sensor.name,
-            valor: sensor.valor,
-            date: sensor.date
-          }
-        })
-      }
-      res.render('sensores/spoo', {sensores: context.sensores})
-    })
+
+    const item = await Sensor.find().lean()
+    res.render('sensores/spoo', {item})
 
 });
 

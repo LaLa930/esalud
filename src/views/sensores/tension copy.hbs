@@ -1,12 +1,11 @@
 
 <!--Vista-->
 <div class="d-none d-sm-block">
-<h1 class="titulo  d-flex justify-content-center" style="margin-top: 20px; color: #04B486;"> Gráfica del pulso</h1>
+<h1 class="titulo  d-flex justify-content-center" style="margin-top: 20px; color: #04B486;"> Gráfica del Pulso</h1>
 </div>
-<div class="container" style="height: 400 px; width: 200 px; margin-top: 20px;">
+<div class="container" style="height: 400 px; width: 400 px;  margin-top: 20px;">
 <canvas id="myChart"></canvas>
 </div>
-
 <table class="table" style="margin-top: 20px;">
   <thead class="thead-dark">
     <tr>
@@ -18,40 +17,41 @@
   <tbody>
       {{#each sensores}}
     <tr>
-      <td style="text-align: center;">{{name}}</td>
-      <td style="text-align: center;">{{valor}}</td>
-      <td style="text-align: center;">{{moment date format="YYYY-MM-DD HH:mm:ss"}} </td> 
+      <td>{{name}}</td>
+      <td>{{valor}}</td>
+      <td>{{moment date format="YYYY-MM-DD HH:mm:ss"}} </td> 
       
     </tr>
     {{/each}}
   </tbody>
 </table>
- 
+
+
 <script>
     var ctx= document.getElementById("myChart").getContext("2d");
     var myChart = new Chart(ctx, {
         type: 'line',
         data: {
             labels: [
-                {{#each item}}
+                {{#each sensores}}
                     "{{moment date format="YYYY-MM-DDTHH:mm:ssZZ"}}"
                     {{#unless @last}},{{/unless}}
                 {{/each}}
             ],
             datasets: [
-               {
+                {
                 label: 'Pulso',
-                borderColor: 'rgba(217, 95, 2, 1)',
-                backgroundColor: 'rgba(217, 95, 2, 0.03)',
-                yAxisID: 'B',
+                borderColor: 'rgba(27, 158, 119, 1)',
+                backgroundColor: 'rgba(27, 158, 119, 0.03)',
+                yAxisID: 'A',
                 data: [
-                    {{#each item}}
+                    {{#each sensores}}
                     {
                         t: "{{moment date format="YYYY-MM-DDTHH:mm:ssZZ"}}",
-                        y: {{pulse}}
+                        y: {{valor}}
                     }{{#unless @last}},{{/unless}}
                     {{/each}}
-                ]},
+                ]}
 
             ]
         },
@@ -80,12 +80,12 @@
                 }],
                 yAxes: [
                 
-                {
-                    id: 'B',
+                 {
+                    id: 'A',
                     position: 'left',
                     scaleLabel: {
                         display: true,
-                        fontColor: 'rgba(217, 95, 2, 1)',
+                        fontColor: 'rgba(27, 158, 119, 1)',
                         labelString: 'ppm'
                     }
                 }
@@ -97,3 +97,66 @@
 </script>
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- CHART EJEMPLO SIN ADAPTAR 
+ <script>
+        var ctx= document.getElementById("myChart").getContext("2d");
+        var myChart= new Chart(ctx,{
+            type:"bar",
+            data:{
+                labels:['col1','col2','col3'],
+                datasets:[{
+                        label:'Num datos',
+                        data:[10,9,15]
+                }]
+            },
+            options:{
+                scales:{
+                    yAxes:[{
+                            ticks:{
+                                beginAtZero:true
+                            }
+                    }]
+                }
+            }
+        });
+    </script>
+
+</script>
+-->
+
+<!-- CHART EJEMPLO ADAPATADO, LO QUE DEBERIA DE FUNCIONAR -->
