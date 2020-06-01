@@ -18,10 +18,12 @@ client.on('connect', function () {
     client.subscribe(config.mqtt.namespace);
 });
 
-//database y mi modelo de sensor, creamos el newSensor
+//Database y modelos de sensores
 require ('./database');
 const pressureSensor = require('./models/pressure');
 const spo2Sensor = require('./models/spo2');
+const airflowSensor = require('./models/airflow');
+const electroSensor = require('./models/electro');
 
 client.on('message', function (topic, message) {
     const utcNow = moment.utc().toDate();
@@ -31,18 +33,26 @@ client.on('message', function (topic, message) {
     console.log(message);
 
     var newSensor;
+    var isUnknown = false;
     switch (topic) {
         case "pressure":
             newSensor = new pressureSensor({pulse: message.pulse, systolic: message.systolic, diastolic: message.diastolic, user: message.user_id, date: utcNow});
-            
             break;
         case "spo2":
             newSensor = new spo2Sensor({pulse: message.pulse, spo2: message.spo2, user: message.user_id, date: utcNow});
             break;
+        case "airflow":
+            newSensor = new airflowSensor({airflow: message.airflow, user: message.user_id, date: utcNow});
+            break;
+        case "electro":
+                newSensor = new electroSensor({electro: message.electro, user: message.user_id, date: utcNow});
+                break;
         default:
+            isUnknown = true;
             console.log("Sensor desconocido!");
     }
-    newSensor.save();
+    if (!isUnknown)
+        newSensor.save();
 
 
 //    if(topic == "oxigeno" && message<=95){

@@ -2,7 +2,7 @@
 
 const express = require('express');
 const router = express.Router();
-const Sensor = require('../models/Sensor');
+const Sensor = require('../models/airflow');
 const {isAuthenticated} = require ('../helpers/auth'); // para ver si esta autenticado o no
 
 
@@ -12,21 +12,8 @@ router.get('/sensores/airflow', isAuthenticated , (req,res)=>{
 
 
 router.get('/airflow', isAuthenticated , async (req,res) => {
-  await Sensor.find({name:'flujo' }) 
-    .then(sensors => {   
-      const context = {
-        sensores: sensors.map(sensor => {
-          return {
-            name: sensor.name,
-            valor: sensor.valor,
-            date: sensor.date
-          }
-        })
-      }
-      res.render('sensores/airflow', {sensores: context.sensores})
-    })
-
-
+  const item = await Sensor.find().lean();
+  res.render('sensores/airflow', {item});
 
 });
 
