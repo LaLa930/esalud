@@ -1,0 +1,82 @@
+body{
+    background: white;
+    
+}
+
+.logo{
+    width: 30%;
+
+}
+
+.card{
+
+   background-color: rgba(0,0,0,0.5) !important;
+}
+
+.card-header {
+    margin-top: 20px;
+    color: white;
+}
+ 
+.input-group-prepend span{
+    width: 50px;
+    background-color: #04B486;
+    color: black;
+    border:0 !important;
+}
+    
+input:focus{
+    outline: 0 0 0 0  !important;
+    box-shadow: 0 0 0 0 !important;
+    
+}
+    
+.login_btn{
+    color: white;
+    background-color: #04B486;
+    width: 150px;
+}
+
+footer{
+        margin-top: 20px;
+}
+
+.tales {
+        width: 100%;
+}
+    
+.carousel-inner{
+    width:100%;
+    max-height: 300px !important;
+}
+
+.dropdown-submenu {
+        position: relative;
+}
+      
+.dropdown-submenu a::after {
+        transform: rotate(-90deg);
+        position: absolute;
+        right: 6px;
+        top: .8em;
+}
+      
+.dropdown-submenu .dropdown-menu {
+        top: 0;
+        left: 100%;
+        margin-left: .1rem;
+        margin-right: .1rem;
+}
+@media screen and (max-width: 768px) {
+
+    .oculto{
+        display:none;
+    }
+    .botones{
+      display:block;
+      margin-left: auto;
+      margin-right: auto;
+      margin-bottom: 10px;
+    }
+   
+    }

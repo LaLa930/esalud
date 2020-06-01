@@ -1,0 +1,80 @@
+
+<nav class="navbar navbar-expand-lg navbar-light" style=" background-color: #04B486";>
+ <a class="navbar-brand text-white" href="#">eSalud</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse" id="navbarNavDropdown">
+    <ul class="navbar-nav">
+      <li class="nav-item active">
+        <a class="nav-link text-white" href="/">¿Qué es eSalud? <span class="sr-only">(current)</span></a>
+      </li>
+      
+      <!--Navegacion de usuario logueado -->
+      {{#if user}}
+      <li class="nav-item active">
+        <a class="nav-link text-white" href="/sensores/Allsensor">Todos los sensores <span class="sr-only">(current)</span></a>
+      </li>
+      <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle text-white" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Mis Sensores</a>
+        <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+          <li><a class="dropdown-item" href="/sensores/electro">Electrocardiograma</a></li>
+          <li><a class="dropdown-item" href="/sensores/airflow">Flujo de aire</a></li>
+          <li class="dropdown-submenu">
+            <a class="dropdown-item dropdown-toggle" href="#">SPO2</a>
+            <ul class="dropdown-menu">
+              <li><a class="dropdown-item" href="/sensores/spo">Saturación</a></li>
+              <li><a class="dropdown-item" href="/sensores/spoo">Pulso</a></li>
+              <li><a class="d-none d-sm-block dropdown-item" href="/sensores/spoT">Todo</a></li>
+            </ul>
+          </li>
+          <li class="dropdown-submenu">
+            <a class="dropdown-item dropdown-toggle" href="#">Tensión</a>
+            <ul class="dropdown-menu">
+              <li><a class="dropdown-item" href="/sensores/tension">Pulso</a></li>
+              <li><a class="dropdown-item" href="/sensores/sistolica">Sistólica</a></li>
+               <li><a class="dropdown-item" href="/sensores/diastolica">Diastólica</a></li>
+               <li><a class="d-none d-sm-block dropdown-item" href="/sensores/presionT">Todo</a></li>
+            </ul>
+          </li>
+        </ul>
+      </li>
+
+      <li class="nav-item active">
+        <a class="nav-link text-white" href="/users/logout">Salir<span class="sr-only">(current)</span></a>
+      </li>
+
+      <!--Navegacion de usuario no logueado -->
+      {{else}}
+                  <ul class="navbar-nav">
+                  <li class="nav-item active">
+                      <a class="nav-link text-white" href="/users/singin">Iniciar Sesión <span class="sr-only">(current)</span></a>
+                  </li>
+                  <li class="nav-item active">
+                      <a class="nav-link text-white" href="/users/singup">Registrarse <span class="sr-only">(current)</span></a>
+                  </li>
+              </ul>
+      {{/if}}
+    </ul>
+  </div>
+</nav>
+
+
+<!-- Script de dropdowns-->
+<script>
+$('.dropdown-menu a.dropdown-toggle').on('click', function(e) {
+  if (!$(this).next().hasClass('show')) {
+    $(this).parents('.dropdown-menu').first().find('.show').removeClass('show');
+  }
+  var $subMenu = $(this).next('.dropdown-menu');
+  $subMenu.toggleClass('show');
+
+
+  $(this).parents('li.nav-item.dropdown.show').on('hidden.bs.dropdown', function(e) {
+    $('.dropdown-submenu .show').removeClass('show');
+  });
+
+  return false;
+});
+</script>
+

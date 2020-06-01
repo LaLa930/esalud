@@ -1,0 +1,100 @@
+
+<!-- grafica de los valores frente al tiempo -->
+<div class="d-none d-sm-block">
+<h1 class="d-flex justify-content-center" style="margin-top: 20px; color: #04B486;"> Gráfica de la presión sistólica</h1>
+</div>
+<div class="container" style="height: 400 px; width: 400 px;  margin-top: 20px;">
+<canvas id="myChart"></canvas>
+</div>
+
+<table class="table" style="margin-top: 20px;">
+  <thead class="thead-dark">
+    <tr>
+      <th scope="col">Nombre</th>
+      <th scope="col">Valor<th>
+      <th scope="col">Fecha</th>
+    </tr>
+  </thead>
+  <tbody>
+      {{#each sensores}}
+    <tr>
+      <td>{{name}}</td>
+      <td>{{valor}}</td>
+      <td>{{moment date format="YYYY-MM-DD HH:mm:ss"}} </td> <!--{{date}}-->
+      
+    </tr>
+    {{/each}}
+  </tbody>
+</table>
+
+ 
+<script>
+    var ctx= document.getElementById("myChart").getContext("2d");
+    var myChart = new Chart(ctx, {
+        type: 'line',
+        data: {
+            labels: [
+                {{#each sensores}}
+                    "{{moment date format="YYYY-MM-DDTHH:mm:ssZZ"}}"
+                    {{#unless @last}},{{/unless}}
+                {{/each}}
+            ],
+            datasets: [
+               {
+                label: 'Presión Sistólica',
+                borderColor: 'rgba(217, 95, 2, 1)',
+                backgroundColor: 'rgba(217, 95, 2, 0.03)',
+                yAxisID: 'B',
+                data: [
+                    {{#each sensores}}
+                    {
+                        t: "{{moment date format="YYYY-MM-DDTHH:mm:ssZZ"}}",
+                        y: {{valor}}
+                    }{{#unless @last}},{{/unless}}
+                    {{/each}}
+                ]},
+
+            ]
+        },
+        options: {
+            tooltips: {
+                mode: 'index',
+            },
+            legend: {
+                position: 'bottom',
+            },
+            scales: {
+                xAxes: [{
+                    type: 'time',
+                    time: {
+                        tooltipFormat: "DD/MM/YYYY HH:mm:ss",
+                        displayFormats: {
+                            'hour': 'DD MMM HH:mm',
+                            'day': 'MMM DD',
+                        }
+                    },
+                    distribution: 'linear',
+                    scaleLabel: {
+                        display: true,
+                        labelString: 'Fecha'
+                    }
+                }],
+                yAxes: [
+                
+                {
+                    id: 'B',
+                    position: 'left',
+                    scaleLabel: {
+                        display: true,
+                        fontColor: 'rgba(217, 95, 2, 1)',
+                        labelString: 'mmHg'
+                    }
+                }
+               
+                ]
+            }
+        }
+    });
+</script>
+
+

@@ -1,0 +1,48 @@
+
+<!--Estructura de registro -->
+
+<div class="row">
+    <div class="col-md-4 mx-auto">
+        <div class="card mt-4 text-center">
+            <div class="card-header text-white">
+               <h1>Resistro de Usuario</h1> 
+            </div>
+            <div class="card-body">
+                <form action="/users/singup" method="POST">
+                    <div class="form-group">
+                        <input type="text" class="form-control" name="name" placeholder="Nombre"
+                        value="{{name}}">
+                    </div>
+
+                    <div class="form-group">
+                        <input type="email" class="form-control" name="email" placeholder="Email"
+                        value="{{email}}">
+                    </div>
+
+                    <div class="form-group">
+                        <input type="number" class="form-control" name="number" placeholder="Número de telefono +34"
+                        value="{{number}}">
+                    </div>
+
+                    <div class="form-group">
+                        <input type="password" class="form-control" name="password" placeholder="Contraseña">
+                    </div>
+
+                     <div class="form-group">
+                        <input type="password" class="form-control" name="confirm_password" placeholder="Contraseña">
+                    </div>
+
+                 <div class="form-group">
+                     <button type="submit" class="btn btn-primary btn-block" style="background-color: #04B486;">
+                        Registrate
+                     </button>
+                    </div>
+
+                </form>
+
+            </div>
+        </div>
+
+    </div>
+
+</div>
