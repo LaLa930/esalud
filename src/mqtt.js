@@ -37,15 +37,47 @@ client.on('message', function (topic, message) {
     switch (topic) {
         case "pressure":
             newSensor = new pressureSensor({pulse: message.pulse, systolic: message.systolic, diastolic: message.diastolic, user: message.user_id, date: utcNow});
+            if(message.pulse<60 || message.pulse>100 || message.systolic>120 || message.diastolic>80){
+                    Alerta.messages.create({
+                    to: process.env.MY_PHONE_NUMBER,  // A quien, en este caso seria al usuario que esta con la sesión iniciada
+                    from: '+12058578988', // Número de twilio
+                    body:' Esto es un mensaje enviado desde la plataforma eSalud: El sensor de presión arterial ha medido valores que se encuentran fuera de los rangos de normalidad.'
+                })
+                .then(message => console.log(message.sid));
+             }
             break;
         case "spo2":
             newSensor = new spo2Sensor({pulse: message.pulse, spo2: message.spo2, user: message.user_id, date: utcNow});
+            if(message.pulse<60 || message.pulse>100){
+                Alerta.messages.create({
+                to: process.env.MY_PHONE_NUMBER,  // A quien, en este caso seria al usuario que esta con la sesión iniciada
+                from: '+12058578988', // Número de twilio
+                body:' Esto es un mensaje enviado desde la plataforma eSalud: El sensor SPO2 ha medido valores en el pulso que se encuentran fuera de los rangos de normalidad.'
+            })
+            .then(message => console.log(message.sid));
+         }
+            if(message.spo2<95){
+                Alerta.messages.create({
+                to: process.env.MY_PHONE_NUMBER,  // A quien, en este caso seria al usuario que esta con la sesión iniciada
+                from: '+12058578988', // Número de twilio
+                body:' Esto es un mensaje enviado desde la plataforma eSalud: El sensor SPO2 ha medido valores de saturación de oxígeno que se encuentran fuera de los rangos de normalidad.'
+            })
+            .then(message => console.log(message.sid));
+        }
             break;
         case "airflow":
             newSensor = new airflowSensor({airflow: message.airflow, user: message.user_id, date: utcNow});
             break;
         case "electro":
                 newSensor = new electroSensor({electro: message.electro, user: message.user_id, date: utcNow});
+                if(message.electro<3.5){
+                    Alerta.messages.create({
+                    to: process.env.MY_PHONE_NUMBER,  // A quien, en este caso seria al usuario que esta con la sesión iniciada
+                    from: '+12058578988', // Número de twilio
+                    body:' Esto es un mensaje enviado desde la plataforma eSalud: El electrocardiograma ha medido valores que se encuentran fuera de los rangos de normalidad.'
+                })
+                .then(message => console.log(message.sid));
+            }
                 break;
         default:
             isUnknown = true;
