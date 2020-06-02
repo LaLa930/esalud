@@ -1,5 +1,5 @@
 
-<!-- grafica de los valores frente al tiempo -->
+<!-- vista -->
 <div class="d-none d-sm-block">
 <h1 class="d-flex justify-content-center" style="margin-top: 20px; color: #04B486;"> Gráfica de la presión sistólica</h1>
 </div>
@@ -7,6 +7,8 @@
 <canvas id="myChart"></canvas>
 </div>
 
+
+<!-- Si se quieren usar tablas
 <table class="table" style="margin-top: 20px;">
   <thead class="thead-dark">
     <tr>
@@ -16,16 +18,17 @@
     </tr>
   </thead>
   <tbody>
-      {{#each sensores}}
+      {{#each item}}
     <tr>
       <td>{{name}}</td>
-      <td>{{valor}}</td>
-      <td>{{moment date format="YYYY-MM-DD HH:mm:ss"}} </td> <!--{{date}}-->
+      <td>{{systolic}}</td>
+      <td>{{moment date format="YYYY-MM-DD HH:mm:ss"}} </td> 
       
     </tr>
     {{/each}}
   </tbody>
 </table>
+-->
 
  
 <script>

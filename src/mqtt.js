@@ -42,14 +42,23 @@ client.on('message', function (topic, message) {
         case "spo2":
             newSensor = new spo2Sensor({pulse: message.pulse, spo2: message.spo2, user: message.user_id, date: utcNow});
 
-            if(newSensor.pulse >10){
+            if(newSensor.pulse >100 || newSensor.pulse<60){
                 alerta.messages.create({
                 to: process.env.MY_PHONE_NUMBER,  // A quien, en este caso seria al usuario que esta con la sesión iniciada
                 from: '+12058578988', // Número de twilio
-                body:' Esto es un mensaje enviado desde la plataforma eSalud: Su porcentaje de oxígeno en sangre es del 95% o inferior, esto puede suponer problemas de hipoxemia.'
+                body:' Esto es un mensaje enviado desde la plataforma eSalud: Su pulso es de: '+newSensor.pulse+'ppm y se encuentra fuera de los parametros saludables 60-100ppm'
                 })
                 .then(message => console.log(message.sid));
-                console.log("funciona");
+            }
+
+
+            if(newSensor.spo2 <95){
+                alerta.messages.create({
+                to: process.env.MY_PHONE_NUMBER,  // A quien, en este caso seria al usuario que esta con la sesión iniciada
+                from: '+12058578988', // Número de twilio
+                body:' Esto es un mensaje enviado desde la plataforma eSalud: Su nivel de saturación de oxígeno es de: '+newSensor.spo2+'% y se encuentra fuera de los parametros saludables 95-99%'
+                })
+                .then(message => console.log(message.sid));
             }
                 
 

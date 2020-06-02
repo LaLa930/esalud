@@ -6,6 +6,8 @@
 <div class="container" style="height: 400 px; width: 400 px;  margin-top: 20px;">
 <canvas id="myChart"></canvas>
 </div>
+
+<!-- si se quiere tabla
 <table class="table" style="margin-top: 20px;">
   <thead class="thead-dark">
     <tr>
@@ -15,16 +17,17 @@
     </tr>
   </thead>
   <tbody>
-      {{#each sensores}}
+      {{#each item}}
     <tr>
       <td>{{name}}</td>
-      <td>{{valor}}</td>
+      <td>{{pulse}}</td>
       <td>{{moment date format="YYYY-MM-DD HH:mm:ss"}} </td> 
       
     </tr>
     {{/each}}
   </tbody>
 </table>
+-->
 
 
 <script>

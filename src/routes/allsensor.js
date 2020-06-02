@@ -2,7 +2,6 @@
 
 const express = require('express');
 const router = express.Router();
-const Sensor = require('../models/Sensor');
 const {isAuthenticated} = require ('../helpers/auth'); // para ver si esta autenticado o no
 
 // inicio de sesion con todos los sensores en el formato All sensor
