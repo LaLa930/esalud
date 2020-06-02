@@ -1,5 +1,5 @@
 {
-  "name": "Plogin-copia",
+  "name": "ESALUD",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
@@ -35,3 +35,5 @@
     "nodemon": "^2.0.2"
   }
 }
+
+

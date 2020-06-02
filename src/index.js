@@ -18,7 +18,7 @@ require('./config/passport');
 require ('./mqtt');
 
 
-//Settings
+//Configuraciones
 app.set('port', process.env.PORT || 3000);
 app.set('views', path.join(__dirname, 'views') );
 app.engine('.hbs',expressHandlebars({ //Usar hbs
@@ -43,7 +43,7 @@ app.use(passport.session());
 
 app.use(flash());
 
-//Variable global
+//Variables globales
 app.use((req,res,next) => { //Mensajes flash
     
     res.locals.success_msg = req.flash('success_msg');
