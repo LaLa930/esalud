@@ -1,6 +1,8 @@
+// Creo mi modelo de datos de sensor
 const mongoose = require('mongoose');
 const { Schema } = mongoose;
 
+// Parámetros
 const SensorSchema = new Schema ({
 
     name: {type: String, default: "spo2"},

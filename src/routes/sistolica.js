@@ -1,9 +1,9 @@
 const express = require('express');
 const router = express.Router();
 const Sensor = require('../models/pressure');
-const {isAuthenticated} = require ('../helpers/auth'); // para ver si esta autenticado o no
+const {isAuthenticated} = require ('../helpers/auth'); // Para ver si esta autenticado o no
 
-// para etrar a la vista de tension
+// Para etrar a la vista
 router.get('/sensores/sistolica', isAuthenticated , (req,res)=>{
   res.redirect('/sistolica');
 });

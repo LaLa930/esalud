@@ -1,6 +1,4 @@
 
-//FALTA CONFIGURAR EL ID DE USUARIO A LA HORA DE CREAR EL newSensor  DE FORMA QUE CADA UNO TENGA SUS PROPIOS DATOS
-
 var mqtt     = require('mqtt');
 var moment   = require('moment');
 var config   = require('./config/config_mqtt');
@@ -8,12 +6,12 @@ var mqttUri  = 'mqtt://' + config.mqtt.hostname + ':' + config.mqtt.port;
 var client   = mqtt.connect(mqttUri);
 
 
-require ('dotenv').config(); // Archivo .env donde se configura twillio
-const accountSid = process.env.ACCOUNT_SID;  // Conexion twilio
+require ('dotenv').config(); //Archivo .env donde se configura twillio
+const accountSid = process.env.ACCOUNT_SID;  //Conexion twilio
 const authToken = process.env.AUTH_TOKEN;
-const alerta = require ('twilio')(accountSid, authToken); // Cliente
+const alerta = require ('twilio')(accountSid, authToken); //Cliente
 
-//conexion
+//Conexión
 client.on('connect', function () {
     client.subscribe(config.mqtt.namespace);
 });
@@ -40,8 +38,7 @@ client.on('message', function (topic, message) {
 
             if(newSensor.pulse >100 || newSensor.pulse<60){
                 alerta.messages.create({
-                to: process.env.MY_PHONE_NUMBER,  // A quien, en este caso seria al usuario que esta con la sesión iniciada
-                from: '+12058578988', // Número de twilio
+                to: process.env.MY_PHONE_NUMBER,  
                 body:' Esto es un mensaje enviado desde la plataforma eSalud: Su pulso es de: '+newSensor.pulse+'ppm y se encuentra fuera de los parametros saludables: 60 - 100ppm'
                 })
                 .then(message => console.log(message.sid));
@@ -49,8 +46,8 @@ client.on('message', function (topic, message) {
 
             if(newSensor.systolic <100 || newSensor.systolic >140){
                 alerta.messages.create({
-                to: process.env.MY_PHONE_NUMBER,  // A quien, en este caso seria al usuario que esta con la sesión iniciada
-                from: '+12058578988', // Número de twilio
+                to: process.env.MY_PHONE_NUMBER,  
+                from: '+12058578988', 
                 body:' Esto es un mensaje enviado desde la plataforma eSalud: Su presión sistólica es de: '+newSensor.pulse+'mmhg y se encuentra fuera de los parametros saludables: 100 - 140mmhg'
                 })
                 .then(message => console.log(message.sid));
@@ -104,82 +101,6 @@ client.on('message', function (topic, message) {
     }
     if (!isUnknown)
         newSensor.save();
-
-
-//    if(topic == "oxigeno" && message<=95){
-//        Alerta.messages.create({
-//            to: process.env.MY_PHONE_NUMBER,  // A quien, en este caso seria al usuario que esta con la sesión iniciada
-//            from: '+12058578988', // Número de twilio
-//            body:' Esto es un mensaje enviado desde la plataforma eSalud: Su porcentaje de oxígeno en sangre es del 95% o inferior, esto puede suponer problemas de hipoxemia.'
-//        })
-//            .then(message => console.log(message.sid));
-//    }
-//
-//    if(topic == "oxigenoPulso" && message<60){
-//        Alerta.messages.create({
-//            to: process.env.MY_PHONE_NUMBER,  // A quien, en este caso seria al usuario que esta con la sesión iniciada
-//            from: '+12058578988', // Número de twilio
-//            body:' Esto es un mensaje enviado desde la plataforma eSalud: Su pulso se encuentra por debajo de lo normal, esto puede suponer problemas cardiovasculares como bradicárdia.'
-//        })
-//            .then(message => console.log(message.sid));
-//    }
-//
-//    if(topic == "oxigenoPulso" && message>100){
-//        Alerta.messages.create({
-//            to: process.env.MY_PHONE_NUMBER,  // A quien, en este caso seria al usuario que esta con la sesión iniciada
-//            from: '+12058578988', // Número de twilio
-//            body:' Esto es un mensaje enviado desde la plataforma eSalud: Su pulso se encuentra por encima de lo normal, esto puede suponer problemas cardiovasculares como taquicárdia.'
-//        })
-//            .then(message => console.log(message.sid));
-//    }
-//
-//
-////ALARMA TENSION
-//    if(topic == "tension" && message<60){
-//        Alerta.messages.create({
-//            to: process.env.MY_PHONE_NUMBER,  // A quien, en este caso seria al usuario que esta con la sesión iniciada
-//            from: '+12058578988', // Número de twilio
-//            body:' Esto es un mensaje enviado desde la plataforma eSalud: Su pulso se encuentra por debajo de lo normal, esto puede suponer problemas cardiovasculares como bradicárdia.'
-//        })
-//            .then(message => console.log(message.sid));
-//    }
-//
-//    if(topic == "tension" && message>100){
-//        Alerta.messages.create({
-//            to: process.env.MY_PHONE_NUMBER,  // A quien, en este caso seria al usuario que esta con la sesión iniciada
-//            from: '+12058578988', // Número de twilio
-//            body:' Esto es un mensaje enviado desde la plataforma eSalud: Su pulso se encuentra por encima de lo normal, esto puede suponer problemas cardiovasculares como taquicárdia.'
-//        })
-//            .then(message => console.log(message.sid));
-//    }
-//
-//    if(topic == "sistolica" && message>120){
-//        Alerta.messages.create({
-//            to: process.env.MY_PHONE_NUMBER,  // A quien, en este caso seria al usuario que esta con la sesión iniciada
-//            from: '+12058578988', // Número de twilio
-//            body:' Esto es un mensaje enviado desde la plataforma eSalud: Su presión arterial esta por encima de lo recomendado, esto puede suponer problemas cardiovasculares, como hipertensión.'
-//        })
-//            .then(message => console.log(message.sid));
-//    }
-//
-//    if(topic == "diastolica" && message>80){
-//        Alerta.messages.create({
-//            to: process.env.MY_PHONE_NUMBER,  // A quien, en este caso seria al usuario que esta con la sesión iniciada
-//            from: '+12058578988', // Número de twilio
-//            body:' Esto es un mensaje enviado desde la plataforma eSalud: Su presión arterial esta por encima de lo recomendado, esto puede suponer problemas cardiovasculares, como hipertensión.'
-//        })
-//            .then(message => console.log(message.sid));
-//    }
-//
-////ALARMA ELECTROCARDIOGRAMA
-//    if(topic == "electro" && message>3.5){
-//        Alerta.messages.create({
-//            to: process.env.MY_PHONE_NUMBER,  // A quien, en este caso seria al usuario que esta con la sesión iniciada
-//            from: '+12058578988', // Número de twilio
-//            body:' Esto es un mensaje enviado desde la plataforma eSalud: Su electrocardiograma ha registrado un valor de voltaje que esta por encima de lo recomendado, esto puede suponer problemas del corazón.'
-//        })
-//            .then(message => console.log(message.sid));
-//    }
 
 
 });

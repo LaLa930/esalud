@@ -1,6 +1,5 @@
 
 //Conexion con mi BD
-
 const mongoose = require('mongoose');
 const uri = "mongodb+srv://Teresa:teresa123@cluster0-t8xrk.gcp.mongodb.net/test?retryWrites=true&w=majority";
 var db;

@@ -4,11 +4,11 @@ const {allowInsecurePrototypeAccess} = require('@handlebars/allow-prototype-acce
 const Handlebars = require('handlebars');
 const expressHandlebars = require ('express-handlebars');
 const methodOoverride = require('method-override');
-const session = require ('express-session'); // sesiones de usuarios
-const flash = require('connect-flash'); // para enviar mensajes al usuario
-const passport = require('passport'); // para el control de sesiones
-var schedule = require ('node-schedule'); // sincronizacion de funciones 
-var helpers = require('handlebars-helpers')(); // acortar la fecha
+const session = require ('express-session'); //Sesiones de usuarios
+const flash = require('connect-flash'); //Enviar mensajes al usuario
+const passport = require('passport'); //Control de sesiones
+var schedule = require ('node-schedule'); //Sincronizacion de funciones 
+var helpers = require('handlebars-helpers')(); 
 
 
 //Declaraciones
@@ -21,7 +21,7 @@ require ('./mqtt');
 //Settings
 app.set('port', process.env.PORT || 3000);
 app.set('views', path.join(__dirname, 'views') );
-app.engine('.hbs',expressHandlebars({ // en main dentro de defaultlayout va el css y el html, layouts dir es donde esta el html y el css, partials es el html reutilizable en las vistas, el extname es la extesion
+app.engine('.hbs',expressHandlebars({ //Usar hbs
     defaultLayout:'main',
     layoutsDir: path.join(app.get('views'),'layouts'),
     partialsDir: path.join(app.get('views'),'partials'),
@@ -30,21 +30,21 @@ app.engine('.hbs',expressHandlebars({ // en main dentro de defaultlayout va el c
 app.set('view engine', 'hbs');
 
 //Middlewares, 
-app.use(express.urlencoded({extended:false})); // para poder leer el email y contraseña de un usuario, el extended es para evitar fotos
-app.use(methodOoverride('_method')); // formularios que metan otras cosas como put y delete
-app.use(session({ // la autenticacion
+app.use(express.urlencoded({extended:false})); //Leer email y contraseña de un usuario, el extended es para evitar fotos
+app.use(methodOoverride('_method')); //Formularios con más funcionalidad
+app.use(session({ //Autenticación
     secret: 'secreta',
     resave: true,
     saveUninitialized: true,
 }));
 
-app.use(passport.initialize()); // para el control de sesiones
+app.use(passport.initialize()); //Control de sesiones
 app.use(passport.session());
 
 app.use(flash());
 
 //Variable global
-app.use((req,res,next) => { //mensajes flash al usuario
+app.use((req,res,next) => { //Mensajes flash
     
     res.locals.success_msg = req.flash('success_msg');
     res.locals.errors_msg = req.flash('errors_msg');
@@ -65,7 +65,6 @@ app.use(require('./routes/users'));
 app.use(require('./routes/airflow'));
 app.use(require('./routes/electro'));
 app.use(require('./routes/allsensor'));
-
 app.use(require('./routes/presionT'));
 app.use(require('./routes/spoT'));
 

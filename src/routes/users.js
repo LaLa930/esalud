@@ -1,34 +1,33 @@
-// iran las urls en donde autentica con los login y sing up 
+
 const express = require('express');
 const router = express.Router();
 
-// llamo a user.js donde tengo creado su esquema de BD
+// Llamo a user.js donde tengo creado su esquema de BD
 const User = require('../models/user');
 
-// para el inicio de sesion
+// Para el inicio de sesion
 const passport = require('passport');
 
-//resitro y autenticacion
+// Resitro y autenticación
 router.get('/users/singin', (req,res) => {
     res.render('users/singin');
 });
 
-// para el inicio ed sesion con passport
+// Para el inicio ed sesión con passport
 router.post('/users/singin', passport.authenticate('local', {
-    successRedirect: '/sensores/Allsensor', // si esta todo bien lo envio a als notas de sensores
+    successRedirect: '/sensores/Allsensor', // Si esta todo bien lo envio a als notas de sensores
     failureRedirect: '/users/singin',
-    failureFlash: false // no funciona ahora, no sale el mensaje por alguna razon, estaba a true 
-})); // el metodo local que hemos elegido 
-
+    failureFlash: false 
+})); 
 
 router.get('/users/singup', (req,res) => {
     res.render('users/singup');
 });
 
-// ruta para recibir los datos del registro
+// Ruta para recibir los datos del registro
 router.post('/users/singup', async (req, res)=>{
  const {name, email,number, password, confirm_password} = req.body;
- const errors= []; // este errors es el que esta definido en errors.hbs con la etiqueta de errors
+ const errors= []; 
  console.log(req.body)
 
  if(name.length <= 0){
@@ -55,13 +54,13 @@ if(confirm_password.length <= 0){
 if(errors.length>0){
     res.render('users/singup', {errors, name, email, number, password, confirm_password});
 }else{
-    // para que no haya email repetido
+    // Para que no haya email repetido
     const emailUser = await User.findOne({email:email});
     if(emailUser){
-        req.flash('error', 'El email ya esta en uso'); // otro error que esta definido dentro de errors.hbs
+        req.flash('error', 'El email ya esta en uso'); 
         res.redirect('/users/singup');
     }
-    // cuando compruebo que todo va bien lo me creo un usuario en BD
+    // Cuando compruebo que todo va bien lo me creo un usuario en BD
     const newUser = new User({name, email,number, password});
     newUser.password = await newUser.encryptPassword(password);
     await newUser.save();
@@ -71,7 +70,7 @@ if(errors.length>0){
 
 });
 
-//para el logut
+// Para el logut
 router.get('/users/logout', (req,res) => {
 
     req.logOut();

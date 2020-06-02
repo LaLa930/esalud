@@ -1,10 +1,8 @@
-// solo urls de mi servidor para el usuario manejando sus datos
-
 const express = require('express');
 const moment = require('moment');
 const router = express.Router();
 const Sensor = require('../models/airflow');
-const {isAuthenticated} = require ('../helpers/auth'); // para ver si esta autenticado o no
+const {isAuthenticated} = require ('../helpers/auth'); // Para ver si esta autenticado o no
 
 
 router.get('/sensores/airflow', isAuthenticated , (req,res)=>{
