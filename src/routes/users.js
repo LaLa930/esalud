@@ -8,7 +8,7 @@ const User = require('../models/user');
 // Para el inicio de sesión
 const passport = require('passport');
 
-// Resitro y autenticación
+// Autenticación
 router.get('/users/singin', (req,res) => {
     res.render('users/singin');
 });
@@ -20,6 +20,7 @@ router.post('/users/singin', passport.authenticate('local', {
     failureFlash: false 
 })); 
 
+// Registro
 router.get('/users/singup', (req,res) => {
     res.render('users/singup');
 });
