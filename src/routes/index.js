@@ -1,4 +1,4 @@
-// urls de mi pagina principal, url de los slash acerca de o about
+// Página principal
 
 const express = require('express');
 const router = express.Router();
