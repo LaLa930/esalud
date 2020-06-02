@@ -5,7 +5,7 @@ const router = express.Router();
 // Llamo a user.js donde tengo creado su esquema de BD
 const User = require('../models/user');
 
-// Para el inicio de sesion
+// Para el inicio de sesión
 const passport = require('passport');
 
 // Resitro y autenticación
@@ -13,9 +13,9 @@ router.get('/users/singin', (req,res) => {
     res.render('users/singin');
 });
 
-// Para el inicio ed sesión con passport
+// Para el inicio de sesión con passport
 router.post('/users/singin', passport.authenticate('local', {
-    successRedirect: '/sensores/Allsensor', // Si esta todo bien lo envio a als notas de sensores
+    successRedirect: '/sensores/Allsensor', // Si esta todo bien lo envio a las notas de sensores
     failureRedirect: '/users/singin',
     failureFlash: false 
 })); 
