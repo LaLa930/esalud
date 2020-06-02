@@ -7,7 +7,7 @@ var client   = mqtt.connect(mqttUri);
 
 
 require ('dotenv').config(); //Archivo .env donde se configura twillio
-const accountSid = process.env.ACCOUNT_SID;  //Conexion twilio
+const accountSid = process.env.ACCOUNT_SID;  //Conexión twilio
 const authToken = process.env.AUTH_TOKEN;
 const alerta = require ('twilio')(accountSid, authToken); //Cliente
 
