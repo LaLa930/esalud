@@ -12,8 +12,8 @@
         type: 'line',
         data: {
             labels: [
-                {{#each item}}
-                    "{{moment date format="YYYY-MM-DDTHH:mm:ssZZ"}}"
+                {{#each points}}
+                    "{{moment date format="YYYY-MM-DDTHH:mm:ss.SSSZZ"}}"
                     {{#unless @last}},{{/unless}}
                 {{/each}}
             ],
@@ -24,10 +24,10 @@
                 backgroundColor: 'rgba(27, 158, 119, 0.03)',
                 yAxisID: 'A',
                 data: [
-                    {{#each item}}
+                    {{#each points}}
                     {
-                        t: "{{moment date format="YYYY-MM-DDTHH:mm:ssZZ"}}",
-                        y: {{airflow}}
+                        t: "{{moment date format="YYYY-MM-DDTHH:mm:ss.SSSZZ"}}",
+                        y: {{value}}
                     }{{#unless @last}},{{/unless}}
                     {{/each}}
                 ]}
@@ -35,6 +35,11 @@
             ]
         },
         options: {
+            elements: {
+                point: {
+                    radius: 0
+                }
+            },
             tooltips: {
                 mode: 'index',
             },
@@ -45,7 +50,7 @@
                 xAxes: [{
                     type: 'time',
                     time: {
-                        tooltipFormat: "DD/MM/YYYY HH:mm:ss",
+                        tooltipFormat: "DD/MM/YYYY HH:mm:ss.SSS",
                         displayFormats: {
                             'hour': 'DD MMM HH:mm',
                             'day': 'MMM DD',
