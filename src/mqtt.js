@@ -72,8 +72,8 @@ client.on('message', function (topic, message) {
 
             if(newSensor.pulse >100 || newSensor.pulse<60){
                 alerta.messages.create({
-                to: process.env.MY_PHONE_NUMBER,  // A quien, en este caso seria al usuario que esta con la sesión iniciada
-                from: '+12058578988', // Número de twilio
+                to: process.env.MY_PHONE_NUMBER,  //destinatario
+                from: '+12058578988', //número de twilio
                 body:' Esto es un mensaje enviado desde la plataforma eSalud: Su pulso es de: '+newSensor.pulse+'ppm y se encuentra fuera de los parametros saludables: 60 - 100ppm'
                 })
                 .then(message => console.log(message.sid));
@@ -82,8 +82,8 @@ client.on('message', function (topic, message) {
 
             if(newSensor.spo2 <100){
                 alerta.messages.create({
-                to: process.env.MY_PHONE_NUMBER,  // A quien, en este caso seria al usuario que esta con la sesión iniciada
-                from: '+12058578988', // Número de twilio
+                to: process.env.MY_PHONE_NUMBER,  //destinatario
+                from: '+12058578988', //número de twilio
                 body:' Esto es un mensaje enviado desde la plataforma eSalud: Su nivel de saturación de oxígeno es de: '+newSensor.spo2+'% y se encuentra fuera de los parametros saludables 95 - 99%'
                 })
                 .then(message => console.log(message.sid));
