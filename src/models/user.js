@@ -12,19 +12,14 @@ const UserSchema = new Schema({
     number:{type: Number, required:true},
     date:{type: Date, default: Date.now}
 });
-
 // Cifrado de contraseña
 UserSchema.methods.encryptPassword = async (password) => {
     const salt = await bcrypt.genSalt(10);
     const hash = bcrypt.hash(password,salt);
     return hash;
 };
-
 // Login
 UserSchema.methods.matchPassword = async function (password){
     return await bcrypt.compare(password, this.password);
 };
-
-
 module.exports = moongose.model('User',UserSchema);
-
