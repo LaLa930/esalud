@@ -1,12 +1,11 @@
 
 const helpers = {};
-
-// comprobar si el usuario esta autenticado para ver que le muestro
+// Comprobar si el usuario esta autenticado para ver que le muestro
 helpers.isAuthenticated = (req, res, next) => {
     if(req.isAuthenticated()){
         return next();
     }
-    req.flash('error') // error que esta definido dentro de errors.hbs
+    req.flash('error') 
     res.redirect ('/users/singin');
 }
 
