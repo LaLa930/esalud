@@ -42,7 +42,7 @@ client.on('message', function (topic, message) {
                 alerta.messages.create({
                 to: process.env.MY_PHONE_NUMBER,  // A quien, en este caso seria al usuario que esta con la sesión iniciada
                 from: '+12058578988', // Número de twilio
-                body:' Esto es un mensaje enviado desde la plataforma eSalud: Su pulso es de: '+newSensor.pulse+'ppm y se encuentra fuera de los parametros saludables: 60-100ppm'
+                body:' Esto es un mensaje enviado desde la plataforma eSalud: Su pulso es de: '+newSensor.pulse+'ppm y se encuentra fuera de los parametros saludables: 60 - 100ppm'
                 })
                 .then(message => console.log(message.sid));
             }
@@ -51,7 +51,7 @@ client.on('message', function (topic, message) {
                 alerta.messages.create({
                 to: process.env.MY_PHONE_NUMBER,  // A quien, en este caso seria al usuario que esta con la sesión iniciada
                 from: '+12058578988', // Número de twilio
-                body:' Esto es un mensaje enviado desde la plataforma eSalud: Su presión sistólica es de: '+newSensor.pulse+'mmhg y se encuentra fuera de los parametros saludables: 100-140mmhg'
+                body:' Esto es un mensaje enviado desde la plataforma eSalud: Su presión sistólica es de: '+newSensor.pulse+'mmhg y se encuentra fuera de los parametros saludables: 100 - 140mmhg'
                 })
                 .then(message => console.log(message.sid));
             }
@@ -60,7 +60,7 @@ client.on('message', function (topic, message) {
                 alerta.messages.create({
                 to: process.env.MY_PHONE_NUMBER,  // A quien, en este caso seria al usuario que esta con la sesión iniciada
                 from: '+12058578988', // Número de twilio
-                body:' Esto es un mensaje enviado desde la plataforma eSalud: Su presión diastólica es de: '+newSensor.pulse+'mmhg y se encuentra fuera de los parametros saludables: 60-90mmhg'
+                body:' Esto es un mensaje enviado desde la plataforma eSalud: Su presión diastólica es de: '+newSensor.pulse+'mmhg y se encuentra fuera de los parametros saludables: 60 - 90mmhg'
                 })
                 .then(message => console.log(message.sid));
             }
@@ -74,17 +74,17 @@ client.on('message', function (topic, message) {
                 alerta.messages.create({
                 to: process.env.MY_PHONE_NUMBER,  // A quien, en este caso seria al usuario que esta con la sesión iniciada
                 from: '+12058578988', // Número de twilio
-                body:' Esto es un mensaje enviado desde la plataforma eSalud: Su pulso es de: '+newSensor.pulse+'ppm y se encuentra fuera de los parametros saludables 60-100ppm'
+                body:' Esto es un mensaje enviado desde la plataforma eSalud: Su pulso es de: '+newSensor.pulse+'ppm y se encuentra fuera de los parametros saludables: 60 - 100ppm'
                 })
                 .then(message => console.log(message.sid));
             }
 
 
-            if(newSensor.spo2 <95){
+            if(newSensor.spo2 <100){
                 alerta.messages.create({
                 to: process.env.MY_PHONE_NUMBER,  // A quien, en este caso seria al usuario que esta con la sesión iniciada
                 from: '+12058578988', // Número de twilio
-                body:' Esto es un mensaje enviado desde la plataforma eSalud: Su nivel de saturación de oxígeno es de: '+newSensor.spo2+'% y se encuentra fuera de los parametros saludables 95-99%'
+                body:' Esto es un mensaje enviado desde la plataforma eSalud: Su nivel de saturación de oxígeno es de: '+newSensor.spo2+'% y se encuentra fuera de los parametros saludables 95 - 99%'
                 })
                 .then(message => console.log(message.sid));
             }
