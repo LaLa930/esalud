@@ -1,8 +1,9 @@
 // solo urls de mi servidor para el usuario manejando sus datos
 
 const express = require('express');
+const moment = require('moment');
 const router = express.Router();
-const Sensor = require('../models/Sensor');
+const Sensor = require('../models/electro');
 const {isAuthenticated} = require ('../helpers/auth'); // para ver si esta autenticado o no
 
 // para entrar a la vista de electrocardiograma
@@ -12,19 +13,23 @@ router.get('/sensores/electro', isAuthenticated , (req,res)=>{
 
 
 router.get('/electro', isAuthenticated , async (req,res) => {
-  await Sensor.find({name:'corazon' }) // aqui puedo especificar si quiero que busque por ejemplo el nombre tension EL {user: req.user.id} ES PARA QUE CADA USER TENGA LO SUYO
-    .then(sensors => {     // , user: req.user.id
-      const context = {
-        sensores: sensors.map(sensor => {
-          return {
-            name: sensor.name,
-            valor: sensor.valor,
-            date: sensor.date
-          }
-        })
-      }
-      res.render('sensores/electro', {sensores: context.sensores})
-    })
+    const packs = await Sensor.find().sort('date').lean();
+    let points = [];
+
+    for (let pack of packs) {
+        // Descartamos los packs que traen solo 0, intentando acelerar un poco.
+        if (pack.electro.reduce((a, b) => a + b, 0) != 0) {
+            var d = moment(pack.date);
+            // La frecuencia de muestreo de este sensor es 1 ms y tenemos 100 medidas.
+            d.subtract(99, 'ms');
+            for (let point of pack.electro) {
+                points.push({date: moment(d), value: point});
+                d.add(1, 'ms');
+            }
+        }
+    }
+
+    res.render('sensores/electro', {points});
 });
 
 
